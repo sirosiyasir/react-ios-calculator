@@ -1,85 +1,147 @@
 import React from "react"
-import Button from "./Button"
+import { MainContext } from "./context"
+import { useContext } from "react"
 
 function ButtonArea() {
+  const { setValue } = useContext(MainContext)
+
+  let handleValue
+  let result
+  const handleClick = (e) => {
+    handleValue += e.target.innerText
+    result = handleValue.substring(9, 100)
+    console.log(handleValue.substring(9, 100))
+  }
+
+  const sendOperation = () => {
+    let calculateResult = eval(result)
+    setValue(calculateResult)
+    result = ""
+    handleValue = ""
+  }
+
+  const clearResult = () => {
+    setValue("")
+    result = ""
+    handleValue = ""
+  }
+
   return (
     <div className="component-button">
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="AC"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="+/-"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="%"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-orange-400 bg-orange-300 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="+"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="7"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="8"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="9"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-orange-400 bg-orange-300 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="x"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="4"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="5"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="6"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-orange-400 bg-orange-300 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="-"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="1"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="2"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="3"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-orange-400 bg-orange-300 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="+"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-2/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="0"
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="."
-      />
-      <Button
-        font="text-7xl px-9 py-8 border border-orange-400 bg-orange-300 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-40 2xl:h-40"
-        text="="
-      />
+      <button
+        onClick={clearResult}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        AC
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        +/-
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        %
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-orange-400 bg-orange-300 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        /
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        7
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        8
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        9
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-orange-400 bg-orange-300 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        *
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        4
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        5
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        6
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-orange-400 bg-orange-300 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        -
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        1
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        2
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        3
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-orange-400 bg-orange-300 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        +
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-2/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        0
+      </button>
+      <button
+        onClick={handleClick}
+        className="text-7xl px-9 py-8 border border-gray-300 bg-gray-200 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        .
+      </button>
+      <button
+        onClick={sendOperation}
+        className="text-7xl px-9 py-8 border border-orange-400 bg-orange-300 w-1/4 h-44 sm:h-96 md:h-76 lg:h-36 xl:h-32 2xl:h-40"
+      >
+        =
+      </button>
     </div>
   )
 }
